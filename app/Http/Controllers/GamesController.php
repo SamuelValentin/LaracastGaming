@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 
 class GamesController extends Controller{
-    /*
-        @return
+    /** 
+     * Display a listing of the resource
+     * 
+     * @return \Illuminate\Http\Response
     */
     public function index()
     {
-        $popularGames = Http::withHeaders([
-            'Client-ID' => 'gq1oz2q0sb92v7o0mcjnwxv9k4z6ps',
-            'Authorization' => 'Bearer fm22wsvr4xro7m61x7rx6nfwgwfsf4',
-        ])->withOptions([
+        $popularGames = Http::withHeaders(config('services.igdb'))
+        ->withOptions([
             'body' => "
-                fields name,rating; sort rating desc;
-            "
-        ])->post('https://api.igdb.com/v4/games/')
+                fields *; 
+                limit 5;
+            "])
+        ->post('https://api.igdb.com/v4/games/')
         ->json();
 
-        dd($popularGames);
+        dump($popularGames);
+
+        return view('index', ['popularGames' => $popularGames]);
     }
 
 
