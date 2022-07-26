@@ -34,5 +34,10 @@ return [
     'igdb' => [
         'Client-ID' => 'gq1oz2q0sb92v7o0mcjnwxv9k4z6ps',
         'Authorization' => env('IGDB_KEY'),
-    ]
+    ],
+
+    'body' => ["
+        fields * ;
+        limit 5;
+    "],
 ];
