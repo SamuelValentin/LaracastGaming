@@ -14,14 +14,12 @@ class GamesController extends Controller{
     public function index()
     {
         $popularGames = Http::withHeaders(config('services.igdb'))
-        // ->withOptions([
-            
-        // ])
-        ->asForm()->post('https://api.igdb.com/v4/games/'
-        ,[
-            'body' => "fields *;"
-        ]
-        );
+        ->withBody('
+            fields name;
+            sort rating desc;
+        
+        ','text/plain')
+        ->post('https://api.igdb.com/v4/games/');
 
         dump($popularGames->json());
 
