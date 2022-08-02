@@ -15,16 +15,17 @@ class GamesController extends Controller{
     public function index()
     {
 
-        $before = Carbon::now()->subMonth(2)->timestamp;
+        $before = Carbon::now()->subMonth(6)->timestamp;
         $after = Carbon::now()->addMonth(2)->timestamp;
 
         $popularGames = Http::withHeaders(config('services.igdb'))
         ->withBody("
             fields name, cover.url, first_release_date, platforms.abbreviation, rating;
-            where platforms = (48,49,130);
-            &(first_release_date > {$before}
-            & first_release_date < {$after});
-            sort rating asc;
+            where platforms = (49)
+            & (first_release_date > {$before}
+            & first_release_date < {$after})
+            & rating > 75;
+            sort rating desc;
             limit 10;
         
         ",'text/plain')

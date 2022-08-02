@@ -9,16 +9,27 @@
                 <div class="game mt-8"> <!-- Cyberpunk -->
                     <div class="relative inline-block">
 
-                        <a href="#">
-                            <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game over" class="hover:opacity-75 transition ease-in-out duration-150">
-                        </a>
+                        @if (array_key_exists('cover', $game))
+                            <a href="#">
+                                <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game over" class="hover:opacity-75 transition ease-in-out duration-150">
+                            </a>
+                        @endif
                        
                         <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-800 rounded-full" style="right:-20px; bottom: -20px">
-                            <div class="font-semibolb text-xs flex justify-center items-center h-full">70%</div> 
+                            <div class="font-semibolb text-xs flex justify-center items-center h-full">
+                                {{ round($game['rating']).'%' }}
+                            </div>
                         </div>
                     </div>
                     <a href="#" class="block text-base font-semibold leading-tight hover:text-gray-400 mt-8">{{ $game['name'] }}</a>
-                    <div class="text-gray-400 mt-1">Xbox-SX</div>
+                    <div class="text-gray-400 mt-1">
+                        {{-- @foreach ($game['platforms'] as $platform)
+                            @if (array_key_exists('abbreviation', $platform))
+                                {{ $platform['abbreviation'] }},
+                            @endif
+                        @endforeach --}}
+                        {{ implode(', ', array_column($game['platforms'], 'abbreviation')) }}
+                    </div>
                 </div>
             @endforeach
 
