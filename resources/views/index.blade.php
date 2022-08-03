@@ -68,64 +68,32 @@
             <div class="most-anticipated lg:w-1/4 mt-12 lg:mt-0">
                 <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Recently Reviewed</h2>
                 <div class="most-anticipated-container space-y-10 mt-8">
-                    <div class="game flex">
-                        <a href="#">
-                            <img src="/alyx.jpeg" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
-                        </a>
-                        <div class="ml-4">
-                            <a href="#" class="hover:text-gray-800">Half-Life: Alyx</a>
-                            <div class="text-gray-400 text-sm mt-1">Mar 23, 2020</div>
+                    @foreach ($recentlyReview as $game)
+                        <div class="game flex">
+                            <a href="#">
+                                <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
+                            </a>
+                            <div class="ml-4">
+                                <a href="#" class="hover:text-gray-800">{{ $game['name'] }}</a>
+                                <div class="text-gray-400 text-sm mt-1">{{Carbon\Carbon::parse($game['first_release_date'])->format('M d, y') }}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="game flex">
-                        <a href="#">
-                            <img src="/cyberpunk.jpeg" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
-                        </a>
-                        <div class="ml-4">
-                            <a href="#" class="hover:text-gray-800">Cyberpunk 2077</a>
-                            <div class="text-gray-400 text-sm mt-1">Mar 23, 2020</div>
-                        </div>
-                    </div>
-                    <div class="game flex">
-                        <a href="#">
-                            <img src="/doom.jpeg" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
-                        </a>
-                        <div class="ml-4">
-                            <a href="#" class="hover:text-gray-800">Doom</a>
-                            <div class="text-gray-400 text-sm mt-1">Mar 23, 2020</div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
                 <h2 class="text-blue-500 uppercase tracking-wide font-semibold mt-5">Coming Soon</h2>
                 <div class="most-anticipated-container space-y-10 mt-8">
-                    <div class="game flex">
-                        <a href="#">
-                            <img src="/alyx.jpeg" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
-                        </a>
-                        <div class="ml-4">
-                            <a href="#" class="hover:text-gray-800">Half-Life: Alyx</a>
-                            <div class="text-gray-400 text-sm mt-1">Mar 23, 2020</div>
+                    @foreach ($comingSoon as $game)
+                        <div class="game flex">
+                            <a href="#">
+                                <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
+                            </a>
+                            <div class="ml-4">
+                                <a href="#" class="hover:text-gray-800">{{ $game['name'] }}</a>
+                                <div class="text-gray-400 text-sm mt-1">{{Carbon\Carbon::parse($game['first_release_date'])->format('M d, y') }}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="game flex">
-                        <a href="#">
-                            <img src="/doom.jpeg" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
-                        </a>
-                        <div class="ml-4">
-                            <a href="#" class="hover:text-gray-800">Doom</a>
-                            <div class="text-gray-400 text-sm mt-1">Mar 23, 2020</div>
-                        </div>
-                    </div>
-                    <div class="game flex">
-                        <a href="#">
-                            <img src="/ff7.jpeg" alt="game over" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
-                        </a>
-                        <div class="ml-4">
-                            <a href="#" class="hover:text-gray-800">Final Fantasy 7</a>
-                            <div class="text-gray-400 text-sm mt-1">Mar 23, 2020</div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

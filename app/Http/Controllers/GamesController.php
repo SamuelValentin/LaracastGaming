@@ -50,9 +50,24 @@ class GamesController extends Controller{
 
         dump($recentlyReview);
 
+        $comingSoon = Http::withHeaders(config('services.igdb'))
+        ->withBody("
+            fields name, cover.url, first_release_date, platforms.abbreviation, rating, rating_count, summary;
+            where platforms = (49)
+            & (first_release_date > {$current}
+            & first_release_date < {$after});
+            sort rating_count desc;
+            limit 3;
+        
+        ",'text/plain')
+        ->post('https://api.igdb.com/v4/games/')->json();
+
+        dump($comingSoon);
+
         return view('index', [
             'popularGames' => $popularGames,
             'recentlyReview' => $recentlyReview,
+            'comingSoon' => $comingSoon,
         ]);
     }
 
